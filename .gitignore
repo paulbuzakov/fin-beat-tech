@@ -1,6 +1,7 @@
 bin/
 obj/
 .idea/
+FinBeat.Tech.Api/dictionary.db
 /packages/
 riderModule.iml
 **/*/appsettings.*.json

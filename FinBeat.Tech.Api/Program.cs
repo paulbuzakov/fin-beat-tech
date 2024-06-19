@@ -1,11 +1,23 @@
+using FinBeat.Tech.Api;
+using FinBeat.Tech.Application.Extensions;
+using FinBeat.Tech.Contracts.Converter;
+using FinBeat.Tech.Data.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddApplicationLayer();
+builder.Services.AddDataLayer();
 
-builder.Services.AddControllers();
+builder.Services
+    .AddControllers()
+    .AddJsonOptions(options => { options.JsonSerializerOptions.Converters.Add(new DictionaryListConverter()); });
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SchemaFilter<DictionaryListSchemaFilter>();
+});
 
 var app = builder.Build();
 
